@@ -1,21 +1,25 @@
-# Basic Node.js backend Dockerfile
+# Use lightweight node image
 FROM node:18-alpine
 
-# Create app directory
+# Create work directory
 WORKDIR /usr/src/app
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# Install deps first for caching benefits
 COPY package*.json ./
-RUN npm install --production
+RUN npm install
 
-# Bundle app source
+# Copy source
 COPY . .
 
-# Environment and port
+# Build TypeScript → dist/
+RUN npm run build
+
+# Set env
 ENV NODE_ENV=production
 ENV PORT=3000
+
+# Expose API port
 EXPOSE 3000
 
-# Start the app (expects "start" script in package.json)
+# Run built JS, not TS
 CMD ["npm", "start"]
