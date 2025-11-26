@@ -1,0 +1,10 @@
+$primary-color: #007bff;
+
+        .App {
+          text-align: center;
+          background-color: lighten($primary-color, 40%);
+
+          h1 {
+            color: $primary-color;
+          }
+        }

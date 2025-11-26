@@ -26,7 +26,6 @@ export class RedisService {
         }
 
         this.client.on("error", (err) => {
-            // keep logging minimal; the app can replace with a proper logger
             console.error("Redis error:", err);
         });
     }
